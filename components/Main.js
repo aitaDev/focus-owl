@@ -1,45 +1,30 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import { View, Platform } from 'react-native';
+import { Text, View, Platform } from 'react-native';
+import Home from './Home';
+import AddTasks from './AddTasks';
 
-// const DirectoryNavigator = createStackNavigator(
-// 	{
-// 		Directory: { screen: Directory },
-// 		CampsiteInfo: { screen: CampsiteInfo },
-// 	},
-// 	{
-// 		initialRouteName: 'Directory',
-// 		defaultNavigationOptions: {
-// 			headerStyle: {
-// 				backgroundColor: '#5637DD',
-// 			},
-// 			headerTintColor: '#fff',
-// 			headerTitleStyle: {
-// 				color: '#fff',
-// 			},
-// 		},
-// 	}
-// );
-
-const HomeNavigator = createStackNavigator(
+const screens = createStackNavigator(
 	{
 		Home: { screen: Home },
+		AddTasks: { screen: AddTasks },
 	},
 	{
+		initialRouteName: 'Home',
 		defaultNavigationOptions: {
 			headerStyle: {
-				backgroundColor: '#5637DD',
+				backgroundColor: '#fff',
 			},
-			headerTintColor: '#fff',
+			headerTintColor: '#000000',
 			headerTitleStyle: {
-				color: '#fff',
+				color: '#696969',
 			},
 		},
 	}
 );
 
-const AppNavigator = createAppContainer(HomeNavigator);
+const AppNavigator = createAppContainer(screens);
 
 class Main extends Component {
 	render() {
