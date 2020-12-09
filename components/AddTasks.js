@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 export default class AddTasks extends Component {
 	constructor(props) {
 		super(props);
 	}
 
-	static navigationOptions = {
-		title: 'AddTasks',
+	static navigationOptions = ({ navigation }) => {
+		return {
+			title: 'Add A Task',
+		};
 	};
 
 	render() {
-		const { navigate } = this.props.navigation;
 		return (
-			<View>
+			<View style={{ backgroundColor: 'black', flex: 3 }}>
 				<Text>add task screen</Text>
 			</View>
 		);

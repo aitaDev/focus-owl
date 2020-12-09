@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import { Text, View, Platform } from 'react-native';
+import { Text, View, Platform, StatusBar } from 'react-native';
 import Home from './Home';
 import AddTasks from './AddTasks';
 
 const screens = createStackNavigator(
 	{
 		Home: { screen: Home },
-		AddTasks: { screen: AddTasks },
+		AddTasks: {
+			screen: AddTasks,
+		},
 	},
 	{
 		initialRouteName: 'Home',
 		defaultNavigationOptions: {
 			headerStyle: {
-				backgroundColor: '#fff',
+				backgroundColor: 'black',
+				borderBottomWidth: 0,
 			},
-			headerTintColor: '#000000',
+			headerTintColor: '#11FF9B',
 			headerTitleStyle: {
-				color: '#696969',
+				color: '#11FF9B',
+				fontSize: 26,
 			},
 		},
 	}

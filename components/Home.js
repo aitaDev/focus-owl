@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Text, View, StyleSheet } from 'react-native';
+import { Icon } from 'react-native-elements';
+import TimerTwo from './TimerTwo';
 import Tasks from './Tasks';
 
 export default class Home extends Component {
-	static navigationOptions = {
-		title: 'Focus Owl',
+	static navigationOptions = ({ navigation }) => {
+		return {
+			headerTitle: 'Focus Owl',
+			headerBackTitle: 'Cancel',
+			headerRight: () => (
+				<Icon
+					name='plus-circle'
+					type='font-awesome'
+					color='#11FF9B'
+					onPress={() => navigation.navigate('AddTasks')}
+					size={32}
+					style={{ marginRight: 10 }}
+				/>
+			),
+		};
 	};
-
 	render() {
-		const { navigate } = this.props.navigation;
 		return (
-			<View>
-				<Text style={{ fontSize: 24, textAlign: 'center' }}>Focus Owl</Text>
-				<Button title='New Task' onPress={() => navigate('AddTasks')} />
-				<Text>Pomodoro PlaceHolder</Text>
+			<View style={{ backgroundColor: 'black', flex: 1 }}>
+				<TimerTwo />
 				<Tasks />
 			</View>
 		);
