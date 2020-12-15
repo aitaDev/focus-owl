@@ -6,9 +6,10 @@ export default class TimerTwo extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			run: true,
+			run: false,
 		};
 	}
+
 	handlePause() {
 		this.setState((prevState) => ({
 			run: !prevState.run,
@@ -26,7 +27,12 @@ export default class TimerTwo extends Component {
 						justifyContent: 'center',
 					}}
 				>
-					<Text style={{ color: 'black', fontSize: 50 }}>
+					<Text
+						style={{
+							color: 'black',
+							fontSize: 50,
+						}}
+					>
 						<CountDown
 							until={1500}
 							onFinish={() => alert('Finished!')}

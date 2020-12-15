@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList } from 'react-native';
 import * as tasks from '../shared/tasks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function RenderTasks(state) {
 	const { item } = state;
@@ -14,15 +15,26 @@ function RenderTasks(state) {
 	}
 	return <View />;
 }
-//todo add async store yarn add @react-native-async-storage/async-storage
-// https://react-native-async-storage.github.io/async-storage/docs/install
+
 export default class Task extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			tasks,
+			tasks: [],
 		};
 	}
+	componentDidMount() {
+		this.getData();
+	}
+
+	getData = async () => {
+		try {
+			const jsonValue = await AsyncStorage.getItem('tasks');
+			return jsonValue != null ? JSON.parse(jsonValue) : null;
+		} catch (e) {
+			console.log(e);
+		}
+	};
 
 	render() {
 		return (
