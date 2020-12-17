@@ -23,6 +23,7 @@ const screens = createStackNavigator(
 			headerTitleStyle: {
 				color: '#11FF9B',
 				fontSize: 26,
+				fontWeight: '200',
 			},
 		},
 	}

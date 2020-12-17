@@ -8,70 +8,55 @@ export default class AddTasks extends Component {
 		super(props);
 		this.state = {
 			task: '',
-			taskId: '',
-			taskTime: '',
-			tasks: [],
 		};
 	}
 
-	// componentDMount() {
-	// 	this.setState({ tasks: this.getData });
-	// }
 	static navigationOptions = ({ navigation }) => {
 		return {
 			headerTitle: 'Add a task...',
 		};
 	};
 
-	getData = async () => {
-		try {
-			const jsonValue = await AsyncStorage.getItem('tasks');
-			console.log(jsonValue);
-			return jsonValue != null ? JSON.parse(jsonValue) : null;
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
 	addTaskToTasks() {
-		const task = {
+		const newTask = {
 			task: this.state.task,
-			taskId: this.state.tasks.length,
-			taskTime: Date.now(),
+			// taskId: this.state.tasks.length,
+			// taskTime: new Date().toLocaleTimeString('en-US'),
 		};
-		this.setState((prevState) => ({ tasks: [...prevState.tasks, task] }));
-		this.storeTask();
-	}
+		this.setState((prevState) => ({ task: [...prevState.task, newTask] }));
 
-	storeTask = async () => {
-		try {
-			const jsonValue = JSON.stringify(this.state.tasks);
-			await AsyncStorage.setItem('tasks', jsonValue);
-			navigationOptions.navigation.navigate('Home');
-		} catch (e) {
-			console.log(e);
-		}
-	};
+		AsyncStorage.setItem('task', this.state.task);
+		console.log(this.state.task);
+		this.props.navigation.navigate('Home');
+	}
 
 	render() {
 		return (
-			<View style={{ backgroundColor: 'black', flex: 3 }}>
-				<Text>add task screen</Text>
-				<View>
+			<View style={{ backgroundColor: 'black', flex: 1 }}>
+				<View
+					style={{
+						flex: 1,
+						alignContent: 'center',
+						justifyContent: 'center',
+						borderBottomColor: 'black',
+					}}
+				>
 					<Input
+						inputContainerStyle={{ borderBottomWidth: 0 }}
 						value={this.state.task}
 						onChangeText={(val) => this.setState({ task: val })}
-						style={{ color: '#11FF9B' }}
+						style={{
+							backgroundColor: '#1c1c1c',
+							borderRadius: 25,
+							margin: 20,
+							padding: 20,
+							color: '#11FF9B',
+						}}
 					/>
 					<Button
 						title='Add Task'
 						color='#11FF9B'
 						onPress={() => this.addTaskToTasks()}
-					/>
-					<Button
-						title='getData'
-						color='#11FF9B'
-						onPress={() => this.getData()}
 					/>
 				</View>
 			</View>

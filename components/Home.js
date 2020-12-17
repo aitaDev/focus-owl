@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Text, View, StyleSheet } from 'react-native';
+import { Button, Text, View, StyleSheet, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 import TimerTwo from './TimerTwo';
-import Tasks from './Tasks';
+import CurrentTask from './CurrentTask';
+import UpcomingTasks from './UpcomingTasks';
 
 export default class Home extends Component {
 	static navigationOptions = ({ navigation }) => {
@@ -16,7 +17,8 @@ export default class Home extends Component {
 					color='#11FF9B'
 					onPress={() => navigation.navigate('AddTasks')}
 					size={32}
-					style={{ marginRight: 10 }}
+					style={{ marginRight: 10, fontWeight: '200' }}
+					iconStyle={{ fontWeight: '200' }}
 				/>
 			),
 		};
@@ -25,7 +27,10 @@ export default class Home extends Component {
 		return (
 			<View style={{ backgroundColor: 'black', flex: 1 }}>
 				<TimerTwo />
-				<Tasks />
+				<ScrollView>
+					<CurrentTask />
+					<UpcomingTasks />
+				</ScrollView>
 			</View>
 		);
 	}

@@ -29,7 +29,7 @@ export default class Task extends Component {
 
 	render() {
 		return (
-			<View>
+			<View style={{ flex: 1 }}>
 				<Text
 					style={{
 						marginTop: 30,
@@ -39,7 +39,7 @@ export default class Task extends Component {
 						fontWeight: '200',
 					}}
 				>
-					Up Next
+					Current Tasks
 				</Text>
 				<View
 					style={{
@@ -52,18 +52,13 @@ export default class Task extends Component {
 				>
 					<Text
 						style={{
-							color: 'white',
-							fontSize: 24,
-							fontWeight: '200',
+							color: '#11FF9B',
+							fontSize: 20,
+							fontWeight: '400',
 						}}
 					>
-						{this.state.task}
+						Finish up this app
 					</Text>
-					{/* <FlatList
-					data={task}
-					renderItem={RenderTasks}
-					keyExtractor={(task) => task.taskId.toString()}
-				/> */}
 				</View>
 			</View>
 		);
