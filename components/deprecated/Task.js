@@ -30,17 +30,7 @@ export default class Task extends Component {
 	render() {
 		return (
 			<View>
-				<Text
-					style={{
-						marginTop: 30,
-						marginLeft: 20,
-						color: '#E5E5E5',
-						fontSize: 24,
-						fontWeight: '200',
-					}}
-				>
-					Up Next
-				</Text>
+				<Text style={styles.upNext}>Up Next</Text>
 				<View
 					style={{
 						backgroundColor: '#1c1c1c',
@@ -69,3 +59,12 @@ export default class Task extends Component {
 		);
 	}
 }
+const styles = StyleSheet.create({
+	upNext: {
+		marginTop: 30,
+		marginLeft: 20,
+		color: '#E5E5E5',
+		fontSize: 24,
+		fontWeight: '200',
+	},
+});

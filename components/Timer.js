@@ -1,71 +1,33 @@
 import React, { Component } from 'react';
-import { Button, Text, View, StyleSheet } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { View, Alert } from 'react-native';
+import CountDown from 'react-native-countdown-component';
+import { Text, Icon } from 'react-native-elements';
 
-export default class Timer extends Component {
-	constructor() {
-		super();
+export default class TimerTwo extends Component {
+	constructor(props) {
+		super(props);
 		this.state = {
-			time: {},
-			seconds: 1500,
-			showStart: true,
-			showPause: false,
+			run: false,
+			showMsg: false,
 		};
-		this.timer = 0;
-		this.startTimer = this.startTimer.bind(this);
-		this.countDown = this.countDown.bind(this);
-		this.handleshowStart = this.handleshowStart.bind(this);
 	}
 
-	secondsToTime(secs) {
-		let hours = Math.floor(secs / (60 * 60));
-		let divisor_for_minutes = secs % (60 * 60);
-		let minutes = Math.floor(divisor_for_minutes / 60);
-
-		let divisor_for_seconds = divisor_for_minutes % 60;
-		let seconds = Math.ceil(divisor_for_seconds);
-
-		let obj = {
-			h: hours,
-			m: minutes,
-			s: seconds,
-		};
-		return obj;
-	}
-
-	componentDidMount() {
-		let timeLeftVar = this.secondsToTime(this.state.seconds);
-		this.setState({ time: timeLeftVar });
-	}
-
-	startTimer() {
-		if (this.timer == 0 && this.state.seconds > 0) {
-			this.timer = setInterval(this.countDown, 1000);
-		}
-	}
-
-	countDown() {
-		// Remove one second, set state so a re-render happens.
-		let seconds = this.state.seconds - 1;
-		this.setState({
-			time: this.secondsToTime(seconds),
-			seconds: seconds,
-		});
-
-		// Check if we're at zero.
-		if (seconds == 0) {
-			clearInterval(this.timer);
-		}
-	}
-	handleshowStart() {
-		this.setState({ showStart: !this.state.showStart });
+	handlePause() {
+		this.setState((prevState) => ({
+			run: !prevState.run,
+			showMsg: !prevState.showMsg,
+		}));
+		this.state.run ? Alert.alert('Paused', 'Tap again to resume') : null;
 	}
 
 	render() {
 		return (
-			<View style={{ backgroundColor: 'black', flex: 1, alignItems: 'center' }}>
+			<View style={{ backgroundColor: 'black', alignItems: 'center' }}>
 				<View
 					style={{
+						marginTop: 30,
+						alignItems: 'center',
+						justifyContent: 'center',
 						marginTop: 30,
 						width: 200,
 						height: 200,
@@ -73,37 +35,47 @@ export default class Timer extends Component {
 						backgroundColor: '#11FF9B',
 						alignItems: 'center',
 						justifyContent: 'center',
+						shadowColor: '#BED604',
+						shadowOpacity: 0.5,
+						shadowRadius: 20,
+						elevation: 1,
+						zIndex: 0,
+						fontWeight: '200',
 					}}
 				>
-					<Text style={{ color: 'black', fontSize: 50 }}>
-						{this.state.time.m} : {this.state.time.s}
+					<Text>
+						<CountDown
+							until={1500}
+							onFinish={() => alert('Finished!')}
+							onPress={() => {
+								this.handlePause();
+							}}
+							running={this.state.run}
+							size={45}
+							digitStyle={{
+								marginTop: 10,
+								marginLeft: -15,
+								marginRight: -15,
+							}}
+							timeToShow={['M', 'S']}
+							timeLabels={{ m: null, s: null }}
+							showSeparator
+						/>
 					</Text>
-					{this.state.showStart ? (
-						<Button
-							title='Start'
-							onPress={() => {
-								this.handleshowStart();
-								this.startTimer();
+					<View style={{ zIndex: 1, marginTop: -50 }}>
+						<Icon
+							iconStyle={{
+								marginTop: 20,
+								color: 'black',
+								fontSize: 40,
 							}}
-							color='black'
-						/>
-					) : (
-						<Button
-							title='Pause'
+							name={!this.state.run ? 'play-circle-o' : 'pause-circle-o'}
+							type='font-awesome'
 							onPress={() => {
-								alert(
-									'tHeRe iS nO StOpPInG tHiS tRaIn, FULL STEAM AHEAD COMRADE!!!!'
-								);
-								clearInterval(this.timer);
-								this.setState({
-									seconds: 1500,
-									showStart: true,
-									showPause: false,
-								});
+								this.handlePause();
 							}}
-							color='black'
 						/>
-					)}
+					</View>
 				</View>
 			</View>
 		);
