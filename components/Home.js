@@ -13,26 +13,21 @@ import Timer from './Timer';
 import CurrentTask from './CurrentTask';
 import UpcomingTasks from './UpcomingTasks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+import { addTask } from '../redux/ActionCreators';
 
-const tasksList = [
-	{ name: 'Assignment for Economics', id: '1234' },
-	{ name: 'Debug Main Component', id: '442' },
-	{ name: 'Work on proposal agreement', id: '5235' },
-	{ name: 'Yoga', id: '123' },
-	{ name: 'Research Big O notation', id: '2434' },
-	{ name: 'Incorporate algorithm to sort data', id: '142' },
-];
+const mapStateToProps = (state) => {
+	return {
+		tasks: state.tasks,
+	};
+};
 
-export default class Home extends Component {
+class Home extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showModal: true,
-			tasksList: [],
-			task: {
-				name: '',
-				id: '',
-			},
+			showModal: false,
 		};
 	}
 	toggleModal() {
@@ -48,11 +43,10 @@ export default class Home extends Component {
 			},
 		});
 	}
-	static navigationOptions = ({ navigation }) => {
-		return {
-			headerTitle: 'Focus Owl',
-		};
+	static navigationOptions = {
+		headerTitle: 'Focus Owl',
 	};
+
 	render() {
 		return (
 			<View style={{ backgroundColor: 'black', flex: 1 }}>
@@ -186,3 +180,4 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 	},
 });
+export default connect(mapStateToProps)(Home);

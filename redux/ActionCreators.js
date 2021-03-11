@@ -40,3 +40,8 @@ export const addTasks = (tasks) => ({
 	type: ActionTypes.ADD_TASKS,
 	payload: tasks,
 });
+
+export const addTask = (task) => ({
+	type: ActionTypes.ADD_TASK,
+	payload: task,
+});

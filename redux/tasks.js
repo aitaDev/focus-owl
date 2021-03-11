@@ -15,6 +15,10 @@ export const tasks = (
 				campsites: action.payload,
 			};
 
+		case ActionTypes.ADD_TASK:
+			action.payload.id = state.tasks.length;
+			return { ...state, tasks: state.tasks.concat(action.payload) };
+
 		case ActionTypes.REMOVE_TASKS:
 			return {
 				...state,
